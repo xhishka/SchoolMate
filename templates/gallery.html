@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>School gallery</h1>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade carousel-dark" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for i in files %}
+                    <div class="carousel-item{% if loop.first %} active{% endif %}">
+                        <img src="../static/img/gallery/{{ i }}" class="d-block w-100">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h1>{{ i }}</h1>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="flex">
+            <form method="post" enctype="multipart/form-data" class="gallery">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Select an image to add</label>
+                    <input class="form-control" type="file" id="formFile" name="file" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+            <form method="post" enctype="multipart/form-data" class="gallery">
+                <div class="mb-3">
+                    <label for="select" class="form-label">Select an image to delete</label>
+                    <select class="form-select" id="select" name="select">
+                        {% for i in files %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select></div>
+                <button type="submit" class="btn btn-primary">Delete</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
